@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   let [글제목, 글제목변경] = useState(['spring', 'summer', 'fall']);
@@ -82,6 +82,7 @@ function App() {
         글발행
       </button>
       {modal === true ? <Modal 글제목={글제목} title={title} /> : null}
+      <Modal2 />
     </div>
   );
 }
@@ -95,6 +96,30 @@ function Modal(props) {
       <button>글수정</button>
     </div>
   );
+}
+
+class Modal2 extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'kim',
+      age: 20,
+    };
+  }
+  render() {
+    return (
+      <div>
+        안녕 {this.state.age}
+        <button
+          onClick={() => {
+            this.setState({ age: this.state.age + 1 });
+          }}
+        >
+          버튼
+        </button>
+      </div>
+    );
+  }
 }
 
 export default App;
