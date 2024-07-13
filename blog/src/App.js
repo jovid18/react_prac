@@ -2,8 +2,8 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-    let [글제목, 글제목변경] = useState(['spring', 'summer', 'fall', 'winter']);
-    let [따봉, 따봉변경] = useState(0);
+    let [글제목, 글제목변경] = useState(['spring', 'summer', 'fall']);
+    let [따봉, 따봉변경] = useState([0, 0, 0]);
     let [modal, setModal] = useState(false);
 
     return (
@@ -29,25 +29,24 @@ function App() {
             >
                 버튼
             </button>
-            <div className="list">
-                <h4>
-                    {글제목[0]}
-                    <span onClick={() => 따봉변경(따봉 + 1)}>👍</span> {따봉}
-                </h4>
-                <p>2월 17일 발행</p>
-            </div>
-            <div className="list">
-                <h4>{글제목[1]}</h4>
-                <p>2월 17일 발행</p>
-            </div>
-            <div className="list">
-                <h4>{글제목[2]}</h4>
-                <p>2월 17일 발행</p>
-            </div>
-            <div className="list">
-                <h4 onClick={() => setModal(!modal)}>{글제목[3]}</h4>
-                <p>2월 17일 발행</p>
-            </div>
+            {글제목.map(function (a, i) {
+                return (
+                    <div className="list" key={i}>
+                        <h4 onClick={() => setModal(!modal)}>{글제목[i]}</h4>
+                        <span
+                            onClick={() => {
+                                let copy = [...따봉];
+                                copy[i]++;
+                                따봉변경(copy);
+                            }}
+                        >
+                            👍
+                        </span>
+                        {따봉[i]}
+                        <p>2월 17일 발행</p>
+                    </div>
+                );
+            })}
             {modal === true ? <Modal /> : null}
         </div>
     );
