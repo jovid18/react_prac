@@ -4,8 +4,9 @@ import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import data from './data';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Details';
+import axios from 'axios';
 function App() {
-    let [shoes] = useState(data);
+    let [shoes, setShoes] = useState(data);
     let navigate = useNavigate();
 
     return (
@@ -46,6 +47,22 @@ function App() {
                                     </Row>
                                 </Container>
                             </div>
+                            <button
+                                onClick={() => {
+                                    axios
+                                        .get('https://codingapple1.github.io/shop/data2.json')
+                                        .then((result) => {
+                                            console.log(result.data);
+                                            shoes = [...shoes, ...result.data];
+                                            setShoes(shoes);
+                                        })
+                                        .catch(() => {
+                                            console.log('실패했어요');
+                                        });
+                                }}
+                            >
+                                버튼
+                            </button>
                         </>
                     }
                 />
