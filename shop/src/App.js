@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import data from './data';
-
+import { Routes, Route, Link } from 'react-router-dom';
 function App() {
     let [shoes] = useState(data);
 
@@ -17,16 +17,29 @@ function App() {
                     </Nav>
                 </Container>
             </Navbar>
-            <div className="main-bg"></div>
-            <div>
-                <Container>
-                    <Row>
-                        {shoes.map((a, i) => {
-                            return <Card shoes={shoes[i]} i={i}></Card>;
-                        })}
-                    </Row>
-                </Container>
-            </div>
+            <Link to="/">홈페이지</Link>
+            <Link to="/detail">상세페이지</Link>
+
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <div className="main-bg"></div>
+                            <div>
+                                <Container>
+                                    <Row>
+                                        {shoes.map((a, i) => {
+                                            return <Card shoes={shoes[i]} i={i}></Card>;
+                                        })}
+                                    </Row>
+                                </Container>
+                            </div>
+                        </>
+                    }
+                />
+                <Route path="/detail" element={<div>상세페이지임</div>} />
+            </Routes>
         </div>
     );
 }
